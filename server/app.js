@@ -1,22 +1,18 @@
-const express = require('express');
+const express = require("express");
  
-import dotenv from "dotenv";
-import { connectDatabase } from "./config/database.js";
- 
+const dotenv=require("dotenv");
 dotenv.config({ path: "./server/config/config.env" });
 
-
+const  connectDatabase = require("./config/database.js");
 connectDatabase();
 
-
+const app = express();
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 
 
 const pantryRoutes = require('./routes/pantry');
 
-const app = express();
- 
 app.use('/apiv1/pantry', pantryRoutes);
  
 const PORT = process.env.PORT || process.env.PORT;
